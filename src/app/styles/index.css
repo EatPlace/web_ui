@@ -1,0 +1,13 @@
+@import url('./variables/global.css');
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    background: #e8e8e8;
+}
+
+.app {
+    width: 100vw;
+    min-height: 100vh;
+    text-align: center;
+}

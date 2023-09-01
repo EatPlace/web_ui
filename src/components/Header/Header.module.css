@@ -1,0 +1,9 @@
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu {
+    width: 4000px;
+    padding: 10px 20px;
+}
