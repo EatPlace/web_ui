@@ -20,7 +20,6 @@ export const Menu: FC = () => {
     };
 
     const onLogOutClick = () => {
-        // Нужно отправить запрос на Log Out
         logoutMutation();
         dispatch(userActions.logOut());
     };
