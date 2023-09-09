@@ -11,6 +11,8 @@ type EatListsBoardProps = {
     eatLists: ProfileEatList[] | undefined;
 };
 
+import { TestButtons } from '@components/TestButtons';
+
 import styles from './EatListsBoard.module.css';
 export const EatListsBoard: FC<EatListsBoardProps> = ({ eatLists }) => {
     const [selectedEatList, setSelectedEatList] = useState<ProfileEatList | null>(null);
@@ -42,42 +44,46 @@ export const EatListsBoard: FC<EatListsBoardProps> = ({ eatLists }) => {
     ];
 
     return (
-        <Container className={styles.container}>
-            {eatLists && eatLists.length > 0 ? (
-                <Box>
-                    <Typography variant='h5'>Сформированные списки продуктов</Typography>
-                    <DataGrid
-                        columns={columns}
-                        editMode='row'
-                        pageSizeOptions={[5, 10]}
-                        rows={eatLists}
-                        initialState={{
-                            pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
-                            },
-                        }}
-                        onRowClick={onRowClick}
-                    />
-                </Box>
-            ) : (
-                <Typography variant='body1'>Создайте свой первый список покупок, и он появится здесь</Typography>
-            )}
-            {/* {eatLists?.map((eatList, index) => (
+        <>
+            <TestButtons selectedListId={selectedEatList?.id || null} />
+
+            <Container className={styles.container}>
+                {eatLists && eatLists.length > 0 ? (
+                    <Box>
+                        <Typography variant='h5'>Сформированные списки продуктов</Typography>
+                        <DataGrid
+                            columns={columns}
+                            editMode='row'
+                            pageSizeOptions={[5, 10]}
+                            rows={eatLists}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: { page: 0, pageSize: 5 },
+                                },
+                            }}
+                            onRowClick={onRowClick}
+                        />
+                    </Box>
+                ) : (
+                    <Typography variant='body1'>Создайте свой первый список покупок, и он появится здесь</Typography>
+                )}
+                {/* {eatLists?.map((eatList, index) => (
                 <EatListItem
                     key={index}
                     listId={eatList.id}
                     name={eatList.name}
                 />
             ))} */}
-            {selectedEatList ? (
-                <Box sx={{ mt: 6 }}>
-                    <EatListItem
-                        key={selectedEatList.id}
-                        listId={selectedEatList.id}
-                        name={selectedEatList.name}
-                    />
-                </Box>
-            ) : null}
-        </Container>
+                {selectedEatList ? (
+                    <Box sx={{ mt: 6 }}>
+                        <EatListItem
+                            key={selectedEatList.id}
+                            listId={selectedEatList.id}
+                            name={selectedEatList.name}
+                        />
+                    </Box>
+                ) : null}
+            </Container>
+        </>
     );
 };
