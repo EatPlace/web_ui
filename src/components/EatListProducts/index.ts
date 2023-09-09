@@ -1,0 +1,1 @@
+export { EatListProducts } from './EatListProducts';

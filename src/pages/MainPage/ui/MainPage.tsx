@@ -1,14 +1,17 @@
 import { useGetProfileProfileGetQuery } from '@api/generatedApi';
-import { Box } from '@mui/material';
+import { EatListsBoard } from '@components/EatListsBoard';
+import { Box, CircularProgress } from '@mui/material';
 import type { FC } from 'react';
 
 import styles from './MainPage.module.css';
 
 const MainPage: FC = () => {
-    const { data: profile } = useGetProfileProfileGetQuery();
+    const { data: profile, isLoading } = useGetProfileProfileGetQuery();
 
-    console.log({ profile: profile });
-
-    return <Box className={styles.mainPage}>Main Page</Box>;
+    return (
+        <Box className={styles.mainPage}>
+            {isLoading ? <CircularProgress /> : <EatListsBoard eatLists={profile?.lists} />}
+        </Box>
+    );
 };
 export default MainPage;

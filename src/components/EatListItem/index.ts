@@ -1,0 +1,1 @@
+export { EatListItem } from './EatListItem';
