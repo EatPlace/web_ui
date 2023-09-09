@@ -13,8 +13,6 @@ export const splitApi = createApi({
                 headers.set('Authorization', `Bearer ${accessToken}`);
             }
 
-            headers.set('Content-Type', 'multipart/form-data');
-
             return headers;
         },
         credentials: 'include',

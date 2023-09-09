@@ -22,8 +22,13 @@ export const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(fetchLogin.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
-            state.authToken = action.payload.access_token;
-            localStorage.setItem('authToken', state.authToken);
+            if (action.payload?.access_token) {
+                state.authToken = action.payload?.access_token;
+                localStorage.setItem('authToken', state.authToken);
+            }
+        });
+        builder.addCase(fetchLogin.rejected, (state, action: any) => {
+            throw action.error;
         });
         //     builder.addCase(fetchCheckout.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
         //         state.isAuth = true;

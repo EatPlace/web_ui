@@ -1,5 +1,6 @@
 import { axiosInstance } from '@api/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { errorMessages } from '@store/entities/user/constants/errors';
 
 // import { getApiUrl } from '@api/getApiUrl';
 // import * as process from 'process';
@@ -14,7 +15,11 @@ export const fetchLogin = createAsyncThunk<AuthResponse, AuthSchema>('auth/login
         })
 
         .then((response) => response?.data)
-        .catch((error) => console.error(error));
+        .catch((error) => {
+            const code = error.response?.data?.detail as keyof typeof errorMessages;
+            const message = errorMessages[code] || errorMessages.UNKNOWN_ERROR;
+            throw message;
+        });
 
     return response;
 });
