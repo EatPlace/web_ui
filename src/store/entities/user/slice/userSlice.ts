@@ -27,7 +27,7 @@ export const userSlice = createSlice({
                 localStorage.setItem('authToken', state.authToken);
             }
         });
-        builder.addCase(fetchLogin.rejected, (state, action: any) => {
+        builder.addCase(fetchLogin.rejected, (state, action) => {
             throw action.error;
         });
         //     builder.addCase(fetchCheckout.fulfilled, (state, action: PayloadAction<AuthResponse>) => {

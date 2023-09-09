@@ -15,7 +15,7 @@ export const SignUpCongratulation: FC<SignUpCongratulationProps> = ({ onConfirm 
             <Container className={styles.inlineContainer}>
                 <Typography
                     color='success'
-                    variant='h6'
+                    variant='h5'
                 >
                     Поздравляем!
                 </Typography>
