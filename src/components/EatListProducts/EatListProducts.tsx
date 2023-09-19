@@ -13,7 +13,7 @@ export const EatListProducts: FC<EatListProductsProps> = ({ products }) => {
     const columns: GridColDef[] = [
         { field: 'name', headerName: 'Название', width: 180 },
         { field: 'price', headerName: 'Цена', width: 100 },
-        { field: 'count', headerName: 'Цена', width: 100 },
+        { field: 'count', headerName: 'Количество', width: 100 },
         { field: 'currency', headerName: 'Валюта', width: 80 },
         { field: 'calories_per_month', headerName: 'Калории', width: 80 },
         { field: 'total_carb_per_month', headerName: 'Углеводы, г', width: 100 },
