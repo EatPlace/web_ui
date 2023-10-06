@@ -1,0 +1,30 @@
+# Используйте официальный образ Node.js для сборки React-приложения
+FROM node:18-alpine3.16 as build
+
+RUN apk add curl
+
+# Установите рабочую директорию внутри контейнера
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+# Копируйте package.json и package-lock.json в контейнер
+COPY package.json ./
+COPY package-lock.json ./
+
+# Установите зависимости
+RUN npm install --silent
+RUN npm install react-scripts -g --silent
+
+# Скопируйте все файлы из текущей директории в контейнер
+COPY . ./
+
+# Соберите React-приложение
+RUN npm run build
+
+# Основной этап сборки
+FROM nginx:1.21
+
+# Копируйте собранные файлы React-приложения из предыдущего этапа в контейнер
+COPY --from=build /app/build /usr/share/nginx/html
+
