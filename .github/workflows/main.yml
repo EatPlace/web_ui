@@ -19,7 +19,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/eat-place
           tags: |
-            type=ref,pattern="web_ui_{{branch}}"
+            type=ref,pattern={{web_ui_branch}}
 
       - name: ECHO TAGS & LABELS
         run: |
