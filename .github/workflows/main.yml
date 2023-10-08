@@ -18,13 +18,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/eat-place
-          tags: |
-            value=web_ui_{{branch}}
-
-      - name: ECHO TAGS & LABELS
-        run: |
-          echo ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.labels }}
+          tags: value=web_ui_{{branch}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
