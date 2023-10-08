@@ -19,6 +19,8 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/eat-place
           tags: prefix=web_ui
+
+      - name: ECHO TAGS & LABELS
         run: |
           echo ${{ steps.meta.outputs.tags }}
           echo ${{ steps.meta.outputs.labels }}
