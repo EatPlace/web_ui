@@ -1,2 +1,6 @@
 node_modules
 dist
+src/api/generatedApi.ts
+src/components/TestButtons
+src/components/SnackBarMessage
+src/components/Copyright
