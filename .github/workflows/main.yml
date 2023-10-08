@@ -31,16 +31,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
+      - name: Determine Dockerfile
+        id: dockerfile
+        run: |
+          if [ "$GITHUB_REF" == "refs/heads/prod" ]; then
+            echo "Using Dockerfile.prod"
+            echo "::set-output name=dockerfile::Dockerfile.prod"
+          else
+            echo "Using Dockerfile"
+            echo "::set-output name=dockerfile::Dockerfile"
+          fi
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: |
-            if [ "$GITHUB_REF" == "refs/heads/prod" ]; then
-              echo "Dockerfile.prod"
-            else
-              echo "Dockerfile"
-            fi
+          file: ${{ steps.dockerfile.outputs.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }}
           
 
