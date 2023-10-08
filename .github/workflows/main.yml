@@ -27,12 +27,12 @@ jobs:
         - run: echo ${BRANCH_NAME}
 
         - name: Build and push
-        - run: echo ${BRANCH_NAME}
           uses: docker/build-push-action@v5
           with:
             push: true
             file: Dockerfile.prod
             tags: timofeytst/eat-place:${BRANCH_NAME}
+        - run: echo ${BRANCH_NAME}
           
 
   deploy:
