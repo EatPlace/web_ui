@@ -64,7 +64,7 @@ jobs:
           repo: deploy
           ref: prod
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          workflow_file_name: deploy-runners.yaml
+          workflow_file_name: deploy-runners.yml
           client_payload: '{}'
           wait_interval: 11
           trigger_workflow: true
