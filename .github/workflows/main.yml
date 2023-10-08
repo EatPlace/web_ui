@@ -7,7 +7,7 @@ on:
     branches: [ '*' ]
 
 jobs:
-  build:
+  docker_setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,33 +30,36 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Determine Dockerfile
-        id: dockerfile
-        run: |
-          if [ "$GITHUB_REF" == "refs/heads/prod" ]; then
-            echo "Using Dockerfile.prod"
-            echo "::set-output name=dockerfile::Dockerfile.prod"
-          else
-            echo "Using Dockerfile"
-            echo "::set-output name=dockerfile::Dockerfile"
-          fi
+  
 
+  build_and_push:
+    needs: docker_setup
+    if: github.ref != 'refs/heads/prod'
+    runs-on: ubuntu-latest
+    steps:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: ${{ steps.dockerfile.outputs.dockerfile }}
+          file: Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           
 
   deploy:
-    needs: build
+    needs: docker_setup
     if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     steps:
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: Dockerfile
+          tags: ${{ steps.meta.outputs.tags }}
+
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Trigger repo
         uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
