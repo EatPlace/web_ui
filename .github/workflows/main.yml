@@ -54,7 +54,7 @@ jobs:
           uses: docker/build-push-action@v5
           with:
             push: true
-            tags: eat-place/web_ui/${BRANCH_NAME}:latest
+            tags: eatplace/web_ui:${BRANCH_NAME}_latest
 
   deploy:
     needs: docker
