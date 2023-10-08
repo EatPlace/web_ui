@@ -30,33 +30,29 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  
 
-  build_and_push:
-    needs: docker_setup
-    if: github.ref != 'refs/heads/prod'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build and push
+      - name: Build and push Dockerfile
+        if: github.ref != 'refs/heads/prod'
         uses: docker/build-push-action@v5
         with:
           push: true
           file: Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
-          
+
+      - name: Build and push Dockerfile.prod
+        if: github.ref == 'refs/heads/prod'
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: Dockerfile
+          tags: ${{ steps.meta.outputs.tags }}
+  
 
   deploy:
     needs: docker_setup
     if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     steps:
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          file: Dockerfile
-          tags: ${{ steps.meta.outputs.tags }}
-
       - name: Checkout code
         uses: actions/checkout@v4
 
