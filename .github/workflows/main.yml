@@ -18,7 +18,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/eat-place
-          tags: "web_ui"
+          tags: |
+            type=ref,pattern="web_ui_{{branch}}"
 
       - name: ECHO TAGS & LABELS
         run: |
