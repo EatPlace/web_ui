@@ -10,15 +10,15 @@ jobs:
   build:
       runs-on: ubuntu-latest
       steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+        - name: Checkout
+          uses: actions/checkout@v4
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          # list of Docker images to use as base name for tags
-          images: timofeytst/eat-place
+        - name: Docker meta
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            # list of Docker images to use as base name for tags
+            images: timofeytst/eat-place
 
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v3
